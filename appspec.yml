@@ -2,7 +2,7 @@
 
 version: 0.0
 # Specify "os: linux" if this revision targets Amazon Linux
-os: ubuntu
+os: linux
 
 files:
   - source: /
