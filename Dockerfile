@@ -9,12 +9,14 @@ COPY . /bookapp-react-js
 COPY package*.json ./
 
 # Install npm dependencies
-RUN npm install
+RUN sudo apt install npm
+
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
 # Build the React app
+
 RUN npm run build
 
 # Expose port and start application
