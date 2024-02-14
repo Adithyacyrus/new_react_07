@@ -5,7 +5,10 @@ WORKDIR /bookapp-react-js
 
 COPY package*.json ./
 
+RUN npm install --save-dev @babel/code-frame
+
 RUN npm install
+
 
 COPY . .
 
