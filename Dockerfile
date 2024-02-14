@@ -6,15 +6,14 @@ WORKDIR /bookapp-react-js
 
 # Copy package.json and package-lock.json to the working directory
 COPY . /bookapp-react-js
-COPY package*.json ./
+
 
 # Install npm dependencies
 RUN install npm
 
 
 # Copy the rest of the application code to the working directory
-COPY . .
-
+COPY package*.json ./
 # Build the React app
 
 RUN npm run build
