@@ -9,7 +9,8 @@ COPY . /bookapp-react-js
 
 
 # Install npm dependencies
-RUN sudo apt update && sudo apt install -y npm
+RUN  apt update -y 
+RUN apt install -y npm
 
 
 # Copy the rest of the application code to the working directory
