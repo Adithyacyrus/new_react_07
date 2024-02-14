@@ -1,30 +1,22 @@
-# Use an official Node.js runtime as the base image
-FROM node:16-alpine
+# Stage 1: Build the React app
+FROM node:16-alpine AS build-stage
 
-# Set the working directory in the container
 WORKDIR /bookapp-react-js
 
-# Copy package.json and package-lock.json to the working directory
-COPY . /bookapp-react-js
-
-
-# Install npm dependencies
-RUN apt-get update 
-RUN apt-get install -y npm
-
-
-# Copy the rest of the application code to the working directory
 COPY package*.json ./
-# Build the React app
+
+RUN npm install
+
+COPY . .
 
 RUN npm run build
 
-# Expose port and start application
-EXPOSE 3000
-CMD ["npm", "start"]
 
+# Stage 2: Serve the built app using Nginx
+FROM nginx:1.22.1-alpine AS prod-stage
 
-FROM nginx:1.22.1-alpine as prod-stage
-COPY --from=build-stage /app/build /usr/share/nginx/html
+COPY --from=build-stage /bookapp-react-js/build /usr/share/nginx/html
+
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
